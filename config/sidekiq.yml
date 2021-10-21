@@ -1,0 +1,29 @@
+---
+  defaults: &defaults
+    url: redis://localhost:6379
+    concurrency: 5
+    queues:
+        - [queue_one_delivery, 2]
+        - default
+        - queue_two_delivery
+
+  development:
+    <<: *defaults
+
+  test:
+    <<: *defaults
+
+  sandbox:
+    <<: *defaults
+
+  qa:
+    <<: *defaults
+
+  staging:
+    <<: *defaults
+
+  integration:
+    <<: *defaults
+
+  production:
+    <<: *defaults
