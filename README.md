@@ -1,24 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Simple Rails app to replicate https://github.com/mperham/sidekiq/issues/5031
 
-Things you may want to cover:
+To replicate issue, start sidekiq (`bundle exec sidekiq -C config/sidekiq.yml`) and in a rails console, kick off a bunch
+of jobs, e.g. `100.times{QueueOneWorker.perform_async; QueueTwoWorker.perform_async; QueueDefaultWorker.perform_async;}`.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+I'm able to fairly consistently get one or two queues to go "idle", though I have observed times where all queues start
+and appear to remain active.  You may have to restart sidekiq and run the experiment a couple of times before you'll see
+jobs getting backed up in a queue.  Which queue(s) will back up seems to be random.
